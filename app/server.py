@@ -8,9 +8,9 @@ from fastapi import FastAPI, HTTPException, Response
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from pydantic import BaseModel, Field
 
-from monitoring.app.config import MonitorConfig
-from monitoring.app.state import MonitorState
-from monitoring.app.heartbeat_watcher import HeartbeatWatcher
+from .config import MonitorConfig
+from .state import MonitorState
+from .heartbeat_watcher import HeartbeatWatcher
 
 LOGGER = logging.getLogger(__name__)
 

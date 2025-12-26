@@ -5,8 +5,8 @@ import logging
 import threading
 from datetime import datetime, timezone
 
-from monitoring.app.config import MonitorConfig
-from monitoring.app.state import MonitorState
+from .config import MonitorConfig
+from .state import MonitorState
 
 LOGGER = logging.getLogger(__name__)
 

@@ -4,15 +4,15 @@ from __future__ import annotations
 import logging
 import os
 import sys
+from pathlib import Path
 
 import uvicorn
 
-if __name__ == "__main__":  # script execution
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    parent_dir = os.path.dirname(current_dir)
-    sys.path.insert(0, parent_dir)
-    from monitoring.app.server import app, config as server_config
-else:
+if __package__ in {None, ""}:  # executed as "python main.py"
+    current_dir = Path(__file__).resolve().parent
+    sys.path.insert(0, str(current_dir))
+    from app.server import app, config as server_config  # type: ignore
+else:  # executed as module (python -m monitoring.main)
     from .app.server import app, config as server_config
 
 LOGGER = logging.getLogger(__name__)
