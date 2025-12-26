@@ -1,0 +1,33 @@
+groups:
+  - name: monitoring_alerts
+    rules:
+      - alert: MonitoringServiceDown
+        expr: monitoring_service_status == 0
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "服務 {{ $labels.service }} (phase={{ $labels.phase }}) 心跳中斷"
+          description: |
+            Monitoring server 在 {{ $labels.phase }} 階段偵測到 {{ $labels.service }} 心跳缺失超過 30 秒。
+            請檢查該服務日誌或 /events 端點了解細節。
+
+      - alert: TaskFailuresHigh
+        expr: increase(monitoring_task_failures_total[5m]) > 3
+        for: 0s
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.service }} 的 {{ $labels.task }} 任務失敗偏高"
+          description: |
+            最近 5 分鐘內，{{ $labels.service }} 的 {{ $labels.task }} 任務失敗 {{ $value | humanize }} 次，請檢查該 workflow stage。
+
+      - alert: ServiceEventFailureSpike
+        expr: increase(monitoring_events_total{event_type="failure"}[5m]) > 5
+        for: 0s
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.service }} 失敗事件異常增長"
+          description: |
+            Monitoring 於最近 5 分鐘收到 {{ $value | humanize }} 筆 failure 事件 (service={{ $labels.service }})，請留意異常原因。

@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  monitoring:
+    build:
+      context: ../../..
+      dockerfile: monitoring/deployments/monitoring-only/Dockerfile
+    container_name: monitoring-service
+    restart: unless-stopped
+    env_file:
+      - ../../.env
+    ports:
+      - "9400:9400"
+    networks:
+      - smartware_net
+
+networks:
+  smartware_net:
+    external: true
+    name: smartware_net

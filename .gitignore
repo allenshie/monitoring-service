@@ -1,0 +1,37 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+*.egg-info/
+.build/
+build/
+dist/
+
+# Virtual environments / tool caches
+.venv/
+.pdm-build/
+.uv-cache/
+.pybuilder/
+.dmypy.json
+dmypy.json
+
+# Environment / secrets
+.env
+.env.*
+!/.env.example
+
+# Logs & runtime outputs
+logs/
+output/
+*.log
+
+# Test / lint caches
+.pytest_cache/
+.coverage*
+.mypy_cache/
+.ruff_cache/
+
+# Editors / IDE
+.vscode/
+.idea/
